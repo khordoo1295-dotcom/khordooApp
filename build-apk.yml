@@ -1,38 +1,12 @@
-name: Build APK
+name: Build Khorodo APK
 
-on:
+'on':
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-
-      - name: Extract package
-        run: |
-          unzip -o Khorodo_GitHub_Package.zip -d package
-          unzip -o package/KhorodoSource.zip -d project
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.7'
-
-      - name: Build APK
-        working-directory: project
-        run: gradle assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: KhorodoApp
-          path: project/app/build/outputs/apk/debug/*.apk
+      - uses: actions/setup-java@v4
